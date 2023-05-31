@@ -1,11 +1,4 @@
-# Requires admin privileges if UAC (User Account Control) is enabled
-# Code can be pasted directly into a Admin elavated terminal (Hit enter once and the script will run)
-# Made by pando#0001
-if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
-    Start-Process PowerShell "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
-    exit
-}
-
+# Author: pando
 $ErrorActionPreference = 'SilentlyContinue'
 
 [int] $global:column = 0
@@ -20,17 +13,17 @@ function generate_checkbox {
         [string]$package,
         [bool]$enabled = $true
     )
-    $checkbox = new-object System.Windows.Forms.checkbox
+    $checkbox = New-Object System.Windows.Forms.CheckBox
     if ($global:column -ge $maxColumn) {
-        $checkbox.Location = new-object System.Drawing.Size(($global:column * 300), $global:lastPos)
+        $checkbox.Location = New-Object System.Drawing.Size(($global:column * 300), $global:lastPos)
         $global:column = 0
         $global:lastPos += $separate
     }
     else {
-        $checkbox.Location = new-object System.Drawing.Size(30, $global:lastPos)
+        $checkbox.Location = New-Object System.Drawing.Size(30, $global:lastPos)
         $global:column = $column + 1
     }
-    $checkbox.Size = new-object System.Drawing.Size(250, 18)
+    $checkbox.Size = New-Object System.Drawing.Size(250, 18)
     $checkbox.Text = $checkboxText
     $checkbox.Name = $package
     $checkbox.Enabled = $enabled
@@ -53,7 +46,7 @@ $Form.KeyPreview = $True
 $Form.SizeGripStyle = 2
 
 # Label
-$Label = New-Object System.Windows.Forms.label
+$Label = New-Object System.Windows.Forms.Label
 $Label.Location = New-Object System.Drawing.Size(11, 15)
 $Label.Size = New-Object System.Drawing.Size(255, 15)
 $Label.Text = "Download and install software using winget:"
@@ -158,19 +151,19 @@ foreach ($control in $Form.Controls) {
 
 # Install Button
 $lastPosWidth = $form.Width - 80 - 31
-$InstallButton = new-object System.Windows.Forms.Button
-$InstallButton.Location = new-object System.Drawing.Size($lastPosWidth, $global:lastPos)
-$InstallButton.Size = new-object System.Drawing.Size(80, 23)
+$InstallButton = New-Object System.Windows.Forms.Button
+$InstallButton.Location = New-Object System.Drawing.Size($lastPosWidth, $global:lastPos)
+$InstallButton.Size = New-Object System.Drawing.Size(80, 23)
 $InstallButton.Text = "Install"
 $InstallButton.Add_Click({
-    $checkedPackages = $Form.Controls | Where-Object { $_ -is [System.Windows.Forms.Checkbox] -and $_.Checked } | Select-Object -ExpandProperty Name
+    $checkedPackages = $Form.Controls | Where-Object { $_ -is [System.Windows.Forms.CheckBox] -and $_.Checked } | Select-Object -ExpandProperty Name
     if ($checkedPackages.Count -eq 0) {
         [System.Windows.Forms.MessageBox]::Show("Please select at least one software package to install.", "No package selected", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
     }
     else {
         $packagesToInstall = $checkedPackages -join ','
         Write-Host "winget install --id $packagesToInstall"
-        Start-Process -FilePath "winget" -ArgumentList "install --id $packagesToInstall" -Wait
+        Start-Process -FilePath "winget" -ArgumentList "install --id $packagesToInstall"
     }
 })
 $Form.Controls.Add($InstallButton)
