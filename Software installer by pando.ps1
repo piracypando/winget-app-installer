@@ -1,4 +1,4 @@
-# Requires admin privileges if User Account Control (UAC) is enabled
+# Requires admin privileges if UAC (User Account Control) is enabled
 # Code can be pasted directly into a Admin elavated terminal (Hit enter once and the script will run)
 # Made by pando#0001
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)) {
