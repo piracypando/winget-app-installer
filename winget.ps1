@@ -68,7 +68,7 @@ $Form.Controls.Add((generate_checkbox "Brave Browser" "BraveSoftware.BraveBrowse
 # Google Chrome
 $Form.Controls.Add((generate_checkbox "Google Chrome" "Microsoft.MicrosoftEdge"))
 
-# TorProject.TorBrowser
+# TorBrowser
 $Form.Controls.Add((generate_checkbox "TorBrowser" "TorProject.TorBrowser"))
 
 # VeraCrypt
@@ -77,7 +77,7 @@ $Form.Controls.Add((generate_checkbox "VeraCrypt" "IDRIX.VeraCrypt"))
 # Discord
 $Form.Controls.Add((generate_checkbox "Discord" "Discord.Discord"))
 
-# Telegram.TelegramDesktop
+# Telegram
 $Form.Controls.Add((generate_checkbox "Telegram" "Telegram.TelegramDesktop"))
 
 # Steam
@@ -137,7 +137,7 @@ $Form.Controls.Add((generate_checkbox "GIMP" "GIMP.GIMP"))
 # PrivateInternetAccess
 $Form.Controls.Add((generate_checkbox "PrivateInternetAccess" "PrivateInternetAccess.PrivateInternetAccess"))
 
-# VPNetwork.TorGuard
+# TorGuard
 $Form.Controls.Add((generate_checkbox "TorGuard" "VPNetwork.TorGuard"))
 
 if ($global:column -ne 0) {
